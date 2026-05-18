@@ -14,30 +14,27 @@ def random_lag():
 def check_random_error():
     """Проверка шанса случайной ошибки"""
     chance = 0.05
-    return random() <= chance
+    return random.random() <= chance
 
 def get_temperature():
     """Получает значение температуры"""
-    if check_random_error():
-        return "error"
     
+    global temperature
     temperature = max(-20, min(temperature + random.randint(-5,5), 40))
     return temperature
 
 def get_humidity():
     """Получает значение влажности"""
-    if check_random_error():
-        return "error"
     
-    humidity = max(0, min(temperature + random.randint(-5,5), 100))
+    global humidity
+    humidity = max(0, min(humidity + random.randint(-5,5), 100))
     return humidity
 
 def get_pressure():
     """Получает значение давления"""
-    if check_random_error():
-        return "error"
-    
-    pressure = max(700, min(temperature + random.randint(-10,10), 780))
+
+    global pressure
+    pressure = max(700, min(pressure + random.randint(-10,10), 780))
     return pressure
 
 
@@ -45,7 +42,7 @@ def get_pressure():
 def fetch_parameters():
     """Получает значения параметров"""
 
-    if not online:
+    if not online or check_random_error():
         return "error"
     
     dict = {
@@ -58,12 +55,18 @@ def fetch_parameters():
 
 def status():
     """Статус устройства"""
+    if check_random_error():
+        raise ConnectionError("Устройство не найдено")
     random_lag()
-    return "OK" if online else "OFFLINE"
+    status = {
+        "status": "OK" if online else "OFFLINE"
+    }
+    return status
 
 def parse_command(command):
     """Определяет и исполняет команду устройству"""
     random_lag()
+    global online
     match command:
         case "onoff":
             online = not online
