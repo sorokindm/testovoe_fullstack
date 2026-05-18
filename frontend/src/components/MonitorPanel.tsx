@@ -62,7 +62,7 @@ function MonitorPanel() {
               </div>
                 {`${item.time}`}
                 <br/>
-                <strong>{`${item.humidity}°`}</strong>
+                <strong>{`${item.humidity}%`}</strong>
             </div>
             </>
           ))}
@@ -77,7 +77,7 @@ function MonitorPanel() {
               </div>
                 {`${item.time}`}
                 <br/>
-                <strong>{`${item.pressure}°`}</strong>
+                <strong>{`${item.pressure}мм`}</strong>
             </div>
             </>
           ))}

@@ -1,9 +1,4 @@
 #Инструкция по запуску на windows
-
-##С Docker
-
-
-##Без Docker
 Должен быть установлен Python и npm
 
 Открыть консоль, перейти в /backend
@@ -19,3 +14,26 @@ npm run dev
 Приложение на localhost:5173
 
 #Архитектура
+Backend Flask
+GET /api/status
+{
+	"status": value 
+}
+value: OK, OFFLINE
+
+GET /api/parameters
+{
+	"temperature": <number>,
+	"humidity": <number>,
+	"pressure": <number>,
+}
+
+POST /api/commands 
+{
+	"command": <string>
+}
+Допустимая команда: "onoff"
+
+WS /ws
+Для связи монитора параметров
+
